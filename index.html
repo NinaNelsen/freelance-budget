@@ -3,61 +3,330 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#111111" />
+  <meta name="theme-color" content="#0b0f1a" />
   <link rel="manifest" href="manifest.json" />
-  <title>Freelance Budget (Bills First)</title>
+  <link rel="icon" href="icon-192.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.svg">
+  <title>Freelance Budget — Bills First</title>
+
   <style>
-    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
-    body { margin: 0; background: #0b0b0b; color: #f2f2f2; }
-    header { padding: 18px 16px; border-bottom: 1px solid #222; position: sticky; top: 0; background: #0b0b0b; }
-    h1 { margin: 0; font-size: 18px; letter-spacing: 0.2px; }
-    main { padding: 14px 16px 88px; max-width: 980px; margin: 0 auto; }
-    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 10px; }
-    .card { grid-column: span 12; background: #111; border: 1px solid #222; border-radius: 16px; padding: 12px; }
-    @media (min-width: 860px) {
-      .card.half { grid-column: span 6; }
-      .card.third { grid-column: span 4; }
+    :root{
+      --bg: #0b0f1a;
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(255,255,255,0.09);
+      --border: rgba(255,255,255,0.12);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --muted2: rgba(255,255,255,0.55);
+      --accent: #7c5cff;      /* violet */
+      --accent2: #2ee59d;     /* mint */
+      --warn: #ffd166;
+      --bad: #ff6b6b;
+
+      --goodBg: rgba(46,229,157,0.18);
+      --warnBg: rgba(255,209,102,0.18);
+      --badBg:  rgba(255,107,107,0.18);
+
+      --shadow: 0 18px 40px rgba(0,0,0,0.38);
+      --radius: 18px;
+      --radius2: 22px;
+
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
     }
-    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    label { font-size: 12px; opacity: 0.85; display: block; margin-bottom: 6px; }
-    input, select, button, textarea {
-      background: #0c0c0c;
-      color: #f2f2f2;
-      border: 1px solid #2a2a2a;
-      border-radius: 12px;
-      padding: 10px 12px;
+
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 15% -10%, rgba(124,92,255,0.35), transparent 60%),
+        radial-gradient(700px 500px at 90% 8%, rgba(46,229,157,0.18), transparent 55%),
+        radial-gradient(900px 700px at 50% 120%, rgba(255,209,102,0.10), transparent 55%),
+        var(--bg);
+    }
+
+    header{
+      padding: 18px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(11,15,26,0.92), rgba(11,15,26,0.68));
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar{ display:flex; justify-content: space-between; align-items:center; gap:10px; }
+    h1{
+      margin:0;
+      font-size: 16px;
+      letter-spacing: 0.3px;
+      font-weight: 900;
+      opacity: 0.95;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .logoDot{
+      width: 10px; height: 10px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 5px rgba(124,92,255,0.12);
+    }
+
+    main{
+      padding: 14px 16px 104px;
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+
+    .card{
+      grid-column: span 12;
+      background: linear-gradient(180deg, var(--panel2), var(--panel));
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 14px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after{
+      content:"";
+      position:absolute; inset: -1px;
+      background: radial-gradient(700px 300px at 20% 0%, rgba(124,92,255,0.10), transparent 60%);
+      pointer-events:none;
+      mix-blend-mode: screen;
+    }
+
+    @media (min-width: 860px){
+      .card.half{ grid-column: span 6; }
+      .card.third{ grid-column: span 4; }
+      .card.twothird{ grid-column: span 8; }
+    }
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .big{
+      font-size: 34px;
+      font-weight: 950;
+      letter-spacing: -0.6px;
+      margin: 6px 0 8px;
+      line-height: 1.05;
+    }
+
+    .muted{ color: var(--muted); }
+    .small{ font-size: 12px; color: var(--muted2); }
+
+    label{
+      font-size: 12px;
+      color: var(--muted);
+      display:block;
+      margin-bottom: 6px;
+      font-weight: 750;
+    }
+
+    input, select, button, textarea{
+      width: 100%;
+      background: rgba(8,10,16,0.55);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      padding: 11px 12px;
       font-size: 14px;
       outline: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
     }
-    input[type="date"] { padding: 9px 12px; }
-    button {
-      cursor: pointer;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      font-weight: 600;
+    input[type="date"]{ padding: 10px 12px; }
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(124,92,255,0.55);
+      box-shadow: 0 0 0 4px rgba(124,92,255,0.18);
     }
-    button.primary { background: #f2f2f2; color: #0b0b0b; border-color: #f2f2f2; }
-    button.danger { background: #2a1111; border-color: #4a2020; }
-    .pill { display: inline-flex; align-items: center; padding: 6px 10px; border: 1px solid #2a2a2a; border-radius: 999px; font-size: 12px; opacity: 0.9; }
-    .big { font-size: 28px; font-weight: 800; margin: 4px 0 10px; }
-    .muted { opacity: 0.75; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #222; font-size: 13px; }
-    th { font-size: 12px; opacity: 0.75; font-weight: 700; }
-    .tabs { position: fixed; bottom: 0; left: 0; right: 0; background: #0b0b0b; border-top: 1px solid #222; display: flex; gap: 6px; padding: 10px; justify-content: center; }
-    .tabbtn { width: min(260px, 33%); }
-    .hidden { display: none !important; }
-    .kpi { display:flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-    .kpi b { font-size: 14px; }
-    .kpi span { font-size: 12px; opacity: 0.75; }
-    .right { margin-left:auto; }
-    .small { font-size: 12px; }
+
+    button{
+      cursor:pointer;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      font-weight: 900;
+      letter-spacing: 0.2px;
+      padding: 11px 12px;
+    }
+    button:hover{ filter: brightness(1.08); }
+    button:active{ transform: translateY(1px); }
+
+    button.primary{
+      background: linear-gradient(135deg, rgba(124,92,255,0.95), rgba(46,229,157,0.70));
+      border-color: rgba(124,92,255,0.65);
+      color: #081018;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+    }
+    button.danger{
+      background: linear-gradient(135deg, rgba(255,107,107,0.55), rgba(255,107,107,0.20));
+      border-color: rgba(255,107,107,0.35);
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 7px 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(0,0,0,0.18);
+      backdrop-filter: blur(10px);
+    }
+    .pill b{ color: var(--text); }
+
+    .status-good{ background: var(--goodBg); border-color: rgba(46,229,157,0.40); color: rgba(255,255,255,0.92); }
+    .status-warn{ background: var(--warnBg); border-color: rgba(255,209,102,0.40); color: rgba(255,255,255,0.92); }
+    .status-bad { background: var(--badBg);  border-color: rgba(255,107,107,0.40); color: rgba(255,255,255,0.92); }
+
+    .kpi{
+      display:flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .kpi b{ font-size: 14px; }
+    .kpi span{ font-size: 12px; color: var(--muted2); }
+
+    table{
+      width:100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow:hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.16);
+    }
+    th, td{
+      text-align:left;
+      padding: 11px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 13px;
+    }
+    th{
+      font-size: 12px;
+      letter-spacing: 0.2px;
+      color: rgba(255,255,255,0.75);
+      background: rgba(255,255,255,0.05);
+      font-weight: 950;
+    }
+    tr:last-child td{ border-bottom: none; }
+    td .miniBtn{
+      padding: 7px 10px;
+      font-size: 12px;
+      border-radius: 999px;
+      width:auto;
+    }
+
+    .tabs{
+      position: fixed;
+      bottom: 14px;
+      left: 0;
+      right: 0;
+      display:flex;
+      justify-content:center;
+      gap: 10px;
+      padding: 0 14px;
+      z-index: 15;
+    }
+    .tabbtn{
+      width: min(320px, 34%);
+      border-radius: 999px;
+      backdrop-filter: blur(12px);
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: var(--shadow);
+    }
+
+    .hidden{ display:none !important; }
+
+    /* Hero Safe-to-Spend box */
+    .heroNumber{
+      background: linear-gradient(135deg, rgba(124,92,255,0.22), rgba(46,229,157,0.12));
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 12px 14px;
+      display: inline-block;
+      min-width: 240px;
+    }
+
+    /* Progress */
+    .barWrap{
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 999px;
+      overflow:hidden;
+      height: 12px;
+    }
+    .barFill{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(124,92,255,0.95), rgba(46,229,157,0.85));
+    }
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 86px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.72);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 999px;
+      padding: 10px 12px;
+      color: rgba(255,255,255,0.92);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      z-index: 30;
+      max-width: min(520px, calc(100vw - 28px));
+      text-align:center;
+    }
+
+    .badgeGrid{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .badge{
+      display:inline-flex;
+      gap: 8px;
+      align-items:center;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.14);
+      color: rgba(255,255,255,0.86);
+      font-size: 12px;
+    }
+    .badge.locked{ opacity: 0.45; }
+    .badge .emoji{ font-size: 14px; }
+
+    .confetti{
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      z-index: 25;
+    }
   </style>
 </head>
 <body>
 <header>
-  <div class="row" style="justify-content: space-between;">
-    <h1>Freelance Budget — Bills First</h1>
+  <div class="topbar">
+    <h1><span class="logoDot"></span> Freelance Budget — Bills First</h1>
     <span class="pill" id="statusPill">Offline-ready</span>
   </div>
 </header>
@@ -70,13 +339,35 @@
       <div class="card half">
         <div class="row" style="justify-content: space-between;">
           <div>
-            <div class="muted small">Safe to spend (until next pay)</div>
-            <div class="big" id="safeToSpend">$0</div>
+            <div class="small">Safe to spend (until next pay)</div>
+            <div class="big heroNumber" id="safeToSpend">$0</div>
+            <div class="small muted" id="safeExplain">Bills + tax reserved first. Then what’s left is “safe.”</div>
           </div>
-          <div class="pill" id="untilPayPill">Next pay: —</div>
+          <div class="row" style="justify-content:flex-end;">
+            <span class="pill" id="untilPayPill">Next pay: —</span>
+            <span class="pill" id="trafficLight">Status: —</span>
+          </div>
         </div>
-        <div class="muted small" id="safeExplain">
-          Bills + tax reserved first. Then what’s left is “safe.”
+
+        <div style="height:12px;"></div>
+        <div class="row">
+          <span class="pill" id="safePerWeek">Safe/week: —</span>
+          <span class="pill" id="safePerDay">Safe/day: —</span>
+        </div>
+
+        <div style="height:14px;"></div>
+        <div>
+          <div class="row" style="justify-content: space-between;">
+            <div>
+              <b>Protection meter</b>
+              <div class="small muted">Are you fully covered for bills + reserved tax right now?</div>
+            </div>
+            <span class="pill" id="protectPct">0%</span>
+          </div>
+          <div style="height:10px;"></div>
+          <div class="barWrap"><div class="barFill" id="protectBar"></div></div>
+          <div style="height:10px;"></div>
+          <div class="small muted" id="protectExplain">Add bills + income to make this meaningful.</div>
         </div>
       </div>
 
@@ -89,6 +380,7 @@
           <div class="big" style="font-size:22px;" id="balance">$0</div>
         </div>
         <div style="height:10px;"></div>
+
         <div class="kpi">
           <div>
             <b>Bills due before next pay</b><br/>
@@ -97,6 +389,7 @@
           <div class="big" style="font-size:22px;" id="billsDue">$0</div>
         </div>
         <div style="height:10px;"></div>
+
         <div class="kpi">
           <div>
             <b>Tax reserved</b><br/>
@@ -104,12 +397,19 @@
           </div>
           <div class="big" style="font-size:22px;" id="taxReserved">$0</div>
         </div>
+
+        <div style="height:14px;"></div>
+        <div class="row" style="justify-content: space-between;">
+          <button id="dailyCheckBtn" class="primary" style="width:auto;">Daily Check-in (+10)</button>
+          <span class="pill" id="dailyMission">Mission: —</span>
+        </div>
       </div>
 
-      <div class="card">
+      <div class="card twothird">
         <div class="row" style="justify-content: space-between; align-items:flex-end;">
           <div>
-            <b>Quick settings</b><div class="muted small">These power the “Safe to Spend” number.</div>
+            <b>Quick settings</b>
+            <div class="small muted">Set this once. Next pay auto-rolls every 14 days.</div>
           </div>
         </div>
         <div style="height:10px;"></div>
@@ -119,22 +419,42 @@
             <input id="startingBalance" type="number" inputmode="decimal" placeholder="e.g., 5000" />
           </div>
           <div style="flex:1; min-width: 220px;">
-            <label>Next pay date (any expected income)</label>
+            <label>Next pay date (regular job)</label>
             <input id="nextPayDate" type="date" />
           </div>
           <div style="flex:1; min-width: 220px;">
             <label>Default 1099 tax set-aside %</label>
             <input id="defaultTaxPct" type="number" inputmode="decimal" placeholder="e.g., 30" />
           </div>
-          <div class="right">
+          <div style="width:auto; min-width: 140px;">
+            <label>&nbsp;</label>
             <button class="primary" id="saveSettingsBtn">Save</button>
           </div>
         </div>
       </div>
 
+      <div class="card third">
+        <b>Your game</b>
+        <div class="small muted">Tiny dopamine, real behavior change.</div>
+        <div style="height:10px;"></div>
+
+        <div class="row">
+          <span class="pill">✨ Score: <b id="score">0</b></span>
+          <span class="pill">🔥 Streak: <b id="streak">0</b>d</span>
+          <span class="pill">⬆️ Level: <b id="level">1</b></span>
+        </div>
+
+        <div style="height:10px;"></div>
+        <div class="small muted" id="levelLabel">Next level: —</div>
+        <div style="height:8px;"></div>
+        <div class="barWrap"><div class="barFill" id="levelBar"></div></div>
+
+        <div class="badgeGrid" id="badges"></div>
+      </div>
+
       <div class="card">
         <b>Upcoming bills (next 30 days)</b>
-        <div class="muted small">This is what the app is protecting first.</div>
+        <div class="small muted">This is what the app protects first.</div>
         <div style="height:10px;"></div>
         <div id="upcomingBills"></div>
       </div>
@@ -148,7 +468,7 @@
 
       <div class="card half">
         <b>Add income</b>
-        <div class="muted small">Choose W-2 or 1099. 1099 automatically reserves taxes.</div>
+        <div class="small muted">Choose W-2 or 1099. 1099 automatically reserves taxes.</div>
         <div style="height:10px;"></div>
 
         <div class="row">
@@ -184,13 +504,13 @@
         </div>
 
         <div class="row" style="justify-content:flex-end;">
-          <button class="primary" id="addIncomeBtn">Add income</button>
+          <button class="primary" id="addIncomeBtn" style="width:auto;">Add income (+25)</button>
         </div>
       </div>
 
       <div class="card half">
         <b>Add expense</b>
-        <div class="muted small">Expenses reduce balance. Use “Bill” if it’s one of your tracked bills.</div>
+        <div class="small muted">Expenses reduce balance. Logging = points.</div>
         <div style="height:10px;"></div>
 
         <div class="row">
@@ -209,22 +529,22 @@
             <label>Category</label>
             <select id="expCategory">
               <option value="Everyday">Everyday</option>
-              <option value="Bill">Bill</option>
-              <option value="Health">Health</option>
               <option value="Groceries">Groceries</option>
               <option value="Transport">Transport</option>
+              <option value="Health">Health</option>
               <option value="Kids">Kids</option>
+              <option value="Bill">Bill</option>
               <option value="Other">Other</option>
             </select>
           </div>
           <div style="flex:2; min-width: 240px;">
             <label>Note (optional)</label>
-            <input id="expNote" type="text" placeholder="e.g., electric bill, groceries" />
+            <input id="expNote" type="text" placeholder="e.g., groceries, copay, electric" />
           </div>
         </div>
 
         <div class="row" style="justify-content:flex-end;">
-          <button class="primary" id="addExpenseBtn">Add expense</button>
+          <button class="primary" id="addExpenseBtn" style="width:auto;">Add expense (+10)</button>
         </div>
       </div>
 
@@ -232,9 +552,9 @@
         <div class="row" style="justify-content: space-between;">
           <div>
             <b>Recent transactions</b>
-            <div class="muted small">Tap delete if you added something wrong.</div>
+            <div class="small muted">Delete if you entered something wrong.</div>
           </div>
-          <button class="danger" id="wipeBtn" title="Deletes all app data">Reset app</button>
+          <button class="danger" id="wipeBtn" title="Deletes all app data" style="width:auto;">Reset app</button>
         </div>
         <div style="height:10px;"></div>
         <div id="txTable"></div>
@@ -249,7 +569,7 @@
 
       <div class="card half">
         <b>Add a bill</b>
-        <div class="muted small">Bills are what we protect first.</div>
+        <div class="small muted">Bills are what we protect first.</div>
         <div style="height:10px;"></div>
 
         <div class="row">
@@ -278,20 +598,20 @@
         </div>
 
         <div class="row" style="justify-content:flex-end;">
-          <button class="primary" id="addBillBtn">Add bill</button>
+          <button class="primary" id="addBillBtn" style="width:auto;">Add bill (+20)</button>
         </div>
       </div>
 
       <div class="card half">
         <b>Your bills</b>
-        <div class="muted small">Monthly bills auto-roll forward after their due date passes.</div>
+        <div class="small muted">Monthly bills auto-roll forward after their due date passes.</div>
         <div style="height:10px;"></div>
         <div id="billsTable"></div>
       </div>
 
       <div class="card">
         <b>Taxes (annual surprise antidote)</b>
-        <div class="muted small">This MVP “reserves” taxes based on your 1099 income so you don’t accidentally spend it.</div>
+        <div class="small muted">We “reserve” taxes based on 1099 income so you don’t spend it by accident.</div>
         <div style="height:10px;"></div>
         <div id="taxSummary"></div>
       </div>
@@ -306,111 +626,236 @@
   <button class="tabbtn" id="tabBills">Bills</button>
 </nav>
 
+<canvas class="confetti hidden" id="confetti"></canvas>
+
 <script>
-/** ---------- Utilities ---------- **/
+/** ----------------- Helpers ----------------- **/
 const $ = (id) => document.getElementById(id);
-const money = (n) => {
-  const x = Number(n || 0);
-  return x.toLocaleString(undefined, { style: "currency", currency: "USD" });
-};
+const money = (n) => Number(n || 0).toLocaleString(undefined, { style:"currency", currency:"USD" });
 const todayISO = () => new Date().toISOString().slice(0,10);
 const parseISO = (s) => s ? new Date(s + "T00:00:00") : null;
 const daysBetween = (a, b) => Math.ceil((b - a) / (1000*60*60*24));
+const clamp01 = (x) => Math.max(0, Math.min(1, x));
+function uid(){ return Math.random().toString(16).slice(2) + "-" + Date.now().toString(16); }
+function escapeHtml(str){
+  return String(str ?? "")
+    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+}
 
-/** ---------- Storage ---------- **/
-const KEY = "fb_budget_v1";
-function load() {
+/** ----------------- Storage ----------------- **/
+const KEY = "fb_budget_v2_gamified";
+function load(){
   const raw = localStorage.getItem(KEY);
   if (!raw) return {
-    settings: {
-      startingBalance: 0,
-      nextPayDate: "",
-      defaultTaxPct: 30
-    },
-    tx: [], // {id, kind: "income"|"expense", date, amount, who, type, taxPct, category, note, taxReserve}
-    bills: [] // {id, name, amount, dueDate, repeat}
+    settings: { startingBalance: 0, nextPayDate: "", defaultTaxPct: 30 },
+    tx: [],
+    bills: [],
+    game: {
+      score: 0,
+      lastCheckIn: "",
+      streak: 0,
+      earnedBadges: {},
+      lastMissionDay: "",
+      mission: { kind: "logExpense", done: false },
+      history: [] // {day, scoreDelta}
+    }
   };
   try { return JSON.parse(raw); } catch { return null; }
 }
-function save(state) {
-  localStorage.setItem(KEY, JSON.stringify(state));
+function save(state){ localStorage.setItem(KEY, JSON.stringify(state)); }
+
+/** ----------------- Game Logic ----------------- **/
+const BADGES = [
+  { id:"firstBill", emoji:"🧾", name:"First Bill", desc:"Add your first bill." },
+  { id:"firstIncome", emoji:"💸", name:"First Income", desc:"Log your first income." },
+  { id:"first1099", emoji:"🧠", name:"Tax-Smart", desc:"Log a 1099 income (tax reserved)." },
+  { id:"streak3", emoji:"🔥", name:"3-Day Streak", desc:"Check in 3 days in a row." },
+  { id:"streak7", emoji:"🏅", name:"7-Day Streak", desc:"Check in 7 days in a row." },
+  { id:"covered", emoji:"🛡️", name:"Protected", desc:"Reach 100% protection meter." },
+  { id:"tenTx", emoji:"📚", name:"Log Habit", desc:"Log 10 transactions." }
+];
+
+function levelFromScore(score){
+  // gentle curve: Level 1 at 0, level 2 at 100, level 3 at 230, etc.
+  // requirement per level increases by 30 each level.
+  let level = 1;
+  let need = 100;
+  let remaining = score;
+  while (remaining >= need){
+    remaining -= need;
+    level++;
+    need += 30;
+  }
+  const nextNeed = need;
+  const progress = nextNeed ? (remaining / nextNeed) : 0;
+  return { level, remaining, nextNeed, progress };
 }
-function uid() {
-  return Math.random().toString(16).slice(2) + "-" + Date.now().toString(16);
+
+function toast(msg){
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(()=>{ el.style.opacity = "0"; el.style.transition = "opacity 400ms"; }, 1400);
+  setTimeout(()=>{ el.remove(); }, 1900);
 }
 
-/** ---------- Core Calculations ---------- **/
-function compute(state) {
-  const starting = Number(state.settings.startingBalance || 0);
+function awardPoints(state, pts, reason){
+  state.game.score = Number(state.game.score || 0) + pts;
+  state.game.history.push({ day: todayISO(), scoreDelta: pts, reason });
+  // keep history small
+  if (state.game.history.length > 120) state.game.history = state.game.history.slice(-120);
+  save(state);
+  return state;
+}
 
-  const incomeTotal = state.tx
-    .filter(t => t.kind === "income")
-    .reduce((s, t) => s + Number(t.amount || 0), 0);
+function unlockBadge(state, badgeId){
+  if (state.game.earnedBadges[badgeId]) return state;
+  state.game.earnedBadges[badgeId] = todayISO();
+  save(state);
+  confetti();
+  const b = BADGES.find(x=>x.id===badgeId);
+  if (b) toast(`Badge unlocked: ${b.emoji} ${b.name}`);
+  return state;
+}
 
-  const expenseTotal = state.tx
-    .filter(t => t.kind === "expense")
-    .reduce((s, t) => s + Number(t.amount || 0), 0);
+function ensureDailyMission(state){
+  const today = todayISO();
+  if (state.game.lastMissionDay !== today){
+    // rotate missions (simple)
+    const missions = [
+      { kind:"logExpense", label:"Mission: log 1 expense (+10)", pts:10 },
+      { kind:"logIncome",  label:"Mission: log income (+25)", pts:25 },
+      { kind:"addBill",    label:"Mission: add/confirm a bill (+20)", pts:20 }
+    ];
+    const idx = Math.floor(Math.random() * missions.length);
+    state.game.mission = { ...missions[idx], done:false };
+    state.game.lastMissionDay = today;
+    save(state);
+  }
+  return state;
+}
 
-  const balance = starting + incomeTotal - expenseTotal;
+function markMissionDoneIfMatch(state, kind){
+  state = ensureDailyMission(state);
+  if (state.game.mission && !state.game.mission.done && state.game.mission.kind === kind){
+    state.game.mission.done = true;
+    awardPoints(state, state.game.mission.pts, "Mission completed");
+    confetti();
+    toast(`Mission complete! +${state.game.mission.pts}`);
+    save(state);
+  }
+  return state;
+}
 
-  const taxReserved = state.tx
-    .filter(t => t.kind === "income" && t.type === "1099")
-    .reduce((s, t) => s + Number(t.taxReserve || 0), 0);
-
-  const nextPay = state.settings.nextPayDate ? parseISO(state.settings.nextPayDate) : null;
+/** ----------------- Budget Math ----------------- **/
+function rollNextPayForward(state){
   const now = parseISO(todayISO());
+  if (!state.settings.nextPayDate) return state;
+  let nextPay = parseISO(state.settings.nextPayDate);
+  if (!nextPay) return state;
 
-  // Bills due before next pay (or next 14 days if next pay unknown)
-  const windowEnd = nextPay || new Date(now.getTime() + 14 * 24*60*60*1000);
-  const billsDue = state.bills
-    .filter(b => {
-      const d = parseISO(b.dueDate);
-      return d && d >= now && d <= windowEnd;
-    })
-    .reduce((s, b) => s + Number(b.amount || 0), 0);
-
-  const safeToSpend = balance - taxReserved - billsDue;
-
-  // Annual tax estimate based on YTD 1099
-  const ytd1099 = state.tx
-    .filter(t => t.kind === "income" && t.type === "1099")
-    .reduce((s, t) => s + Number(t.amount || 0), 0);
-
-  const defaultPct = Number(state.settings.defaultTaxPct || 0) / 100;
-  // For estimate, use weighted actual reserved / ytd1099 if possible, else default
-  const impliedPct = ytd1099 > 0 ? (taxReserved / ytd1099) : defaultPct;
-  const estTax = ytd1099 * impliedPct;
-
-  return { balance, taxReserved, billsDue, safeToSpend, nextPay, windowEnd, ytd1099, estTax, impliedPct };
+  let changed = false;
+  while (nextPay < now){
+    nextPay = new Date(nextPay.getTime() + 14 * 24*60*60*1000); // every 2 weeks
+    changed = true;
+  }
+  if (changed){
+    state.settings.nextPayDate = nextPay.toISOString().slice(0,10);
+    save(state);
+  }
+  return state;
 }
 
-/** ---------- Bills roll-forward (monthly) ---------- **/
-function rollBillsForward(state) {
+function rollBillsForward(state){
   const now = parseISO(todayISO());
   let changed = false;
-
-  state.bills = state.bills.map(b => {
+  state.bills = state.bills.map(b=>{
     if (b.repeat !== "monthly") return b;
     const due = parseISO(b.dueDate);
     if (!due) return b;
-
-    // If due date is in the past, advance month-by-month until it's today or later.
     let d = new Date(due.getTime());
-    while (d < now) {
+    while (d < now){
       d.setMonth(d.getMonth() + 1);
       changed = true;
     }
-    const iso = d.toISOString().slice(0,10);
-    return { ...b, dueDate: iso };
+    return { ...b, dueDate: d.toISOString().slice(0,10) };
   });
-
   if (changed) save(state);
   return state;
 }
 
-/** ---------- Rendering ---------- **/
-function render(state) {
+function compute(state){
+  const starting = Number(state.settings.startingBalance || 0);
+
+  const incomeTotal = state.tx.filter(t=>t.kind==="income").reduce((s,t)=>s+Number(t.amount||0),0);
+  const expenseTotal = state.tx.filter(t=>t.kind==="expense").reduce((s,t)=>s+Number(t.amount||0),0);
+  const balance = starting + incomeTotal - expenseTotal;
+
+  const taxReserved = state.tx
+    .filter(t=>t.kind==="income" && t.type==="1099")
+    .reduce((s,t)=>s + Number(t.taxReserve || 0), 0);
+
+  const now = parseISO(todayISO());
+  const nextPay = state.settings.nextPayDate ? parseISO(state.settings.nextPayDate) : null;
+  const windowEnd = nextPay || new Date(now.getTime() + 14*24*60*60*1000);
+
+  const billsDue = state.bills
+    .filter(b=>{
+      const d = parseISO(b.dueDate);
+      return d && d >= now && d <= windowEnd;
+    })
+    .reduce((s,b)=>s+Number(b.amount||0),0);
+
+  const safeToSpend = balance - taxReserved - billsDue;
+
+  const ytd1099 = state.tx
+    .filter(t=>t.kind==="income" && t.type==="1099")
+    .reduce((s,t)=>s + Number(t.amount||0), 0);
+
+  const defaultPct = Number(state.settings.defaultTaxPct || 0) / 100;
+  const impliedPct = ytd1099 > 0 ? (taxReserved / ytd1099) : defaultPct;
+  const estTax = ytd1099 * impliedPct;
+
+  // Protection meter: do you have enough balance to cover (billsDue + taxReserved)?
+  const required = billsDue + taxReserved;
+  const protection = required > 0 ? clamp01(balance / required) : 0;
+
+  return { balance, taxReserved, billsDue, safeToSpend, nextPay, windowEnd, ytd1099, estTax, impliedPct, required, protection };
+}
+
+/** ----------------- Rendering ----------------- **/
+function renderBadges(state){
+  const earned = state.game.earnedBadges || {};
+  const html = BADGES.map(b=>{
+    const got = !!earned[b.id];
+    const cls = "badge" + (got ? "" : " locked");
+    const when = got ? ` • ${earned[b.id]}` : "";
+    return `<span class="${cls}" title="${escapeHtml(b.desc)}${when}">
+      <span class="emoji">${b.emoji}</span>
+      <span>${escapeHtml(b.name)}</span>
+    </span>`;
+  }).join("");
+  $("badges").innerHTML = html;
+}
+
+function checkBadges(state, computed){
+  if (state.bills.length >= 1) unlockBadge(state, "firstBill");
+  if (state.tx.some(t=>t.kind==="income")) unlockBadge(state, "firstIncome");
+  if (state.tx.some(t=>t.kind==="income" && t.type==="1099")) unlockBadge(state, "first1099");
+  if (state.tx.length >= 10) unlockBadge(state, "tenTx");
+  if (computed.protection >= 1) unlockBadge(state, "covered");
+  if ((state.game.streak || 0) >= 3) unlockBadge(state, "streak3");
+  if ((state.game.streak || 0) >= 7) unlockBadge(state, "streak7");
+  return state;
+}
+
+function render(state){
+  state = rollNextPayForward(state);
   state = rollBillsForward(state);
+  state = ensureDailyMission(state);
+
   const c = compute(state);
 
   $("balance").textContent = money(c.balance);
@@ -418,154 +863,240 @@ function render(state) {
   $("taxReserved").textContent = money(c.taxReserved);
   $("safeToSpend").textContent = money(c.safeToSpend);
 
-  // Settings inputs
   $("startingBalance").value = state.settings.startingBalance ?? 0;
   $("nextPayDate").value = state.settings.nextPayDate ?? "";
   $("defaultTaxPct").value = state.settings.defaultTaxPct ?? 30;
 
-  // Until pay pill
-  if (state.settings.nextPayDate) {
-    const days = daysBetween(parseISO(todayISO()), parseISO(state.settings.nextPayDate));
+  // Until pay pill + safe/day/week
+  const now = parseISO(todayISO());
+  const end = state.settings.nextPayDate ? parseISO(state.settings.nextPayDate) : new Date(now.getTime() + 14*24*60*60*1000);
+  const days = Math.max(1, daysBetween(now, end));
+
+  if (state.settings.nextPayDate){
     $("untilPayPill").textContent = `Next pay: ${state.settings.nextPayDate} (${days}d)`;
   } else {
     $("untilPayPill").textContent = `Next pay: not set (using 14d)`;
   }
 
-  // Upcoming bills list
-  const now = parseISO(todayISO());
+  const safePerDay = c.safeToSpend / days;
+  const safePerWeek = safePerDay * 7;
+  $("safePerDay").textContent = `Safe/day: ${money(safePerDay)}`;
+  $("safePerWeek").textContent = `Safe/week: ${money(safePerWeek)}`;
+
+  // Traffic light status
+  let status = "Green", cls = "status-good";
+  if (c.safeToSpend < 0){ status = "Red"; cls = "status-bad"; }
+  else if (c.safeToSpend < Math.max(100, c.billsDue * 0.25)){ status = "Yellow"; cls = "status-warn"; }
+  const pill = $("trafficLight");
+  pill.textContent = `Status: ${status}`;
+  pill.classList.remove("status-good","status-warn","status-bad");
+  pill.classList.add(cls);
+
+  // Protection meter
+  const pct = Math.round(c.protection * 100);
+  $("protectPct").textContent = `${pct}%`;
+  $("protectBar").style.width = `${pct}%`;
+  if (c.required <= 0){
+    $("protectExplain").textContent = "Add bills and/or 1099 income to start protecting.";
+  } else {
+    const gap = c.required - c.balance;
+    $("protectExplain").textContent = gap <= 0
+      ? "Protected! Bills + reserved tax are covered by your balance."
+      : `To be fully protected, you need about ${money(gap)} more in balance.`;
+  }
+
+  // Mission label
+  $("dailyMission").textContent = state.game.mission?.label || "Mission: —";
+
+  // Upcoming bills
   const in30 = new Date(now.getTime() + 30*24*60*60*1000);
   const upcoming = state.bills
-    .map(b => ({...b, due: parseISO(b.dueDate)}))
-    .filter(b => b.due && b.due >= now && b.due <= in30)
-    .sort((a,b) => a.due - b.due);
+    .map(b=>({ ...b, due: parseISO(b.dueDate) }))
+    .filter(b=>b.due && b.due >= now && b.due <= in30)
+    .sort((a,b)=>a.due - b.due);
 
   $("upcomingBills").innerHTML = upcoming.length
     ? `<table>
         <thead><tr><th>Due</th><th>Bill</th><th>Amount</th><th>Repeat</th></tr></thead>
         <tbody>
-          ${upcoming.map(b => `
+          ${upcoming.map(b=>`
             <tr>
               <td>${b.dueDate}</td>
               <td>${escapeHtml(b.name)}</td>
               <td>${money(b.amount)}</td>
-              <td>${b.repeat === "monthly" ? "Monthly" : "One-time"}</td>
-            </tr>
-          `).join("")}
+              <td>${b.repeat==="monthly" ? "Monthly" : "One-time"}</td>
+            </tr>`).join("")}
         </tbody>
       </table>`
-    : `<div class="muted small">No bills in the next 30 days yet. Add them in the Bills tab.</div>`;
+    : `<div class="small muted">No bills in the next 30 days yet. Add them in the Bills tab.</div>`;
 
   // Transactions table
-  const txSorted = [...state.tx].sort((a,b) => (b.date || "").localeCompare(a.date || ""));
+  const txSorted = [...state.tx].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
   $("txTable").innerHTML = txSorted.length
     ? `<table>
         <thead><tr><th>Date</th><th>Type</th><th>Who</th><th>Amount</th><th>Notes</th><th></th></tr></thead>
         <tbody>
-          ${txSorted.map(t => `
+          ${txSorted.map(t=>`
             <tr>
               <td>${t.date || ""}</td>
-              <td>${t.kind === "income" ? (t.type || "Income") : (t.category || "Expense")}</td>
+              <td>${t.kind==="income" ? (t.type || "Income") : (t.category || "Expense")}</td>
               <td>${escapeHtml(t.who || "—")}</td>
-              <td>${t.kind === "income" ? money(t.amount) : ("-" + money(t.amount))}</td>
+              <td>${t.kind==="income" ? money(t.amount) : ("-" + money(t.amount))}</td>
               <td>${escapeHtml(t.note || (t.kind==="income" && t.type==="1099" ? `Tax reserved: ${money(t.taxReserve||0)}` : ""))}</td>
-              <td><button class="danger small" data-del-tx="${t.id}">Delete</button></td>
-            </tr>
-          `).join("")}
+              <td><button class="miniBtn danger" data-del-tx="${t.id}">Delete</button></td>
+            </tr>`).join("")}
         </tbody>
       </table>`
-    : `<div class="muted small">No transactions yet. Add income/expenses in the Add tab.</div>`;
+    : `<div class="small muted">No transactions yet. Add income/expenses in the Add tab.</div>`;
 
   // Bills table
-  const billsSorted = [...state.bills].sort((a,b) => (a.dueDate || "").localeCompare(b.dueDate || ""));
+  const billsSorted = [...state.bills].sort((a,b)=>(a.dueDate||"").localeCompare(b.dueDate||""));
   $("billsTable").innerHTML = billsSorted.length
     ? `<table>
         <thead><tr><th>Due</th><th>Bill</th><th>Amount</th><th>Repeat</th><th></th></tr></thead>
         <tbody>
-          ${billsSorted.map(b => `
+          ${billsSorted.map(b=>`
             <tr>
               <td>${b.dueDate}</td>
               <td>${escapeHtml(b.name)}</td>
               <td>${money(b.amount)}</td>
-              <td>${b.repeat === "monthly" ? "Monthly" : "One-time"}</td>
-              <td><button class="danger small" data-del-bill="${b.id}">Delete</button></td>
-            </tr>
-          `).join("")}
+              <td>${b.repeat==="monthly" ? "Monthly" : "One-time"}</td>
+              <td><button class="miniBtn danger" data-del-bill="${b.id}">Delete</button></td>
+            </tr>`).join("")}
         </tbody>
       </table>`
-    : `<div class="muted small">No bills yet. Add your biggest fixed bills first (rent/mortgage, utilities, childcare, loans).</div>`;
+    : `<div class="small muted">No bills yet. Add your biggest fixed bills first.</div>`;
 
   // Tax summary
   $("taxSummary").innerHTML = `
-    <div class="row" style="gap:14px; flex-wrap:wrap;">
-      <div class="pill">1099 income (all time): <b style="margin-left:6px;">${money(c.ytd1099)}</b></div>
-      <div class="pill">Implied tax rate: <b style="margin-left:6px;">${Math.round(c.impliedPct * 100)}%</b></div>
-      <div class="pill">Estimated tax (based on rate): <b style="margin-left:6px;">${money(c.estTax)}</b></div>
-      <div class="pill">Reserved so far: <b style="margin-left:6px;">${money(c.taxReserved)}</b></div>
+    <div class="row" style="gap:10px; flex-wrap:wrap;">
+      <div class="pill">1099 income: <b>${money(c.ytd1099)}</b></div>
+      <div class="pill">Implied tax rate: <b>${Math.round(c.impliedPct * 100)}%</b></div>
+      <div class="pill">Estimated tax: <b>${money(c.estTax)}</b></div>
+      <div class="pill">Reserved so far: <b>${money(c.taxReserved)}</b></div>
     </div>
     <div style="height:10px;"></div>
-    <div class="muted small">
-      Since you tend to get an annual surprise, the goal is: keep “Reserved so far” tracking the estimate so April isn’t brutal.
-      (Later we can add quarterly estimates + reminders.)
+    <div class="small muted">
+      Goal: keep “Reserved so far” tracking the estimate so April isn’t brutal.
     </div>
   `;
 
-  // wire delete buttons
-  document.querySelectorAll("[data-del-tx]").forEach(btn => {
-    btn.onclick = () => {
+  // Game UI
+  const g = state.game || {};
+  const score = Number(g.score || 0);
+  const streak = Number(g.streak || 0);
+  $("score").textContent = String(score);
+  $("streak").textContent = String(streak);
+
+  const lvl = levelFromScore(score);
+  $("level").textContent = String(lvl.level);
+  $("levelLabel").textContent = `Next level in ${Math.max(0, Math.ceil((lvl.nextNeed - lvl.remaining)))} points`;
+  $("levelBar").style.width = `${Math.round(lvl.progress * 100)}%`;
+
+  // badges + checks
+  state = checkBadges(state, c);
+  renderBadges(state);
+
+  // delete buttons
+  document.querySelectorAll("[data-del-tx]").forEach(btn=>{
+    btn.onclick = ()=>{
       const id = btn.getAttribute("data-del-tx");
-      state.tx = state.tx.filter(t => t.id !== id);
-      save(state); render(state);
+      state.tx = state.tx.filter(t=>t.id !== id);
+      save(state);
+      render(state);
     };
   });
-  document.querySelectorAll("[data-del-bill]").forEach(btn => {
-    btn.onclick = () => {
+  document.querySelectorAll("[data-del-bill]").forEach(btn=>{
+    btn.onclick = ()=>{
       const id = btn.getAttribute("data-del-bill");
-      state.bills = state.bills.filter(b => b.id !== id);
-      save(state); render(state);
+      state.bills = state.bills.filter(b=>b.id !== id);
+      save(state);
+      render(state);
     };
   });
+
+  return state;
 }
 
-function escapeHtml(str) {
-  return String(str ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
-}
-
-/** ---------- View Switching ---------- **/
-function show(view) {
+/** ----------------- Tabs ----------------- **/
+function show(view){
   $("viewToday").classList.add("hidden");
   $("viewAdd").classList.add("hidden");
   $("viewBills").classList.add("hidden");
   $(view).classList.remove("hidden");
 }
 
-/** ---------- Events ---------- **/
+/** ----------------- Confetti (tiny + cute) ----------------- **/
+function confetti(){
+  const canvas = $("confetti");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  canvas.classList.remove("hidden");
+
+  const colors = ["#7c5cff","#2ee59d","#ffd166","#ff6b6b","#ffffff"];
+  const parts = Array.from({length: 90}).map(()=>({
+    x: Math.random()*canvas.width,
+    y: -20 - Math.random()*canvas.height*0.3,
+    r: 2 + Math.random()*3,
+    vx: -1 + Math.random()*2,
+    vy: 2 + Math.random()*4,
+    a: Math.random()*Math.PI*2,
+    va: -0.2 + Math.random()*0.4,
+    c: colors[Math.floor(Math.random()*colors.length)]
+  }));
+
+  let t = 0;
+  function frame(){
+    t++;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    parts.forEach(p=>{
+      p.x += p.vx;
+      p.y += p.vy;
+      p.a += p.va;
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.a);
+      ctx.fillStyle = p.c;
+      ctx.fillRect(-p.r, -p.r, p.r*2.6, p.r*1.4);
+      ctx.restore();
+    });
+    if (t < 45) requestAnimationFrame(frame);
+    else canvas.classList.add("hidden");
+  }
+  requestAnimationFrame(frame);
+}
+
+/** ----------------- Init + Events ----------------- **/
 let state = load();
-if (!state) { state = load(); } // second try, safe fallback
-// defaults
+if (!state) state = load();
+
 $("incDate").value = todayISO();
 $("expDate").value = todayISO();
 $("billDue").value = todayISO();
 
-$("tabToday").onclick = () => show("viewToday");
-$("tabAdd").onclick = () => show("viewAdd");
-$("tabBills").onclick = () => show("viewBills");
+$("tabToday").onclick = ()=> show("viewToday");
+$("tabAdd").onclick = ()=> show("viewAdd");
+$("tabBills").onclick = ()=> show("viewBills");
 
-$("saveSettingsBtn").onclick = () => {
+$("saveSettingsBtn").onclick = ()=>{
   state.settings.startingBalance = Number($("startingBalance").value || 0);
   state.settings.nextPayDate = $("nextPayDate").value || "";
   state.settings.defaultTaxPct = Number($("defaultTaxPct").value || 0);
   save(state);
-  render(state);
+  toast("Saved ✅");
+  state = render(state);
   show("viewToday");
 };
 
-$("addIncomeBtn").onclick = () => {
+$("addIncomeBtn").onclick = ()=>{
   const date = $("incDate").value || todayISO();
   const amount = Number($("incAmount").value || 0);
-  if (!(amount > 0)) { alert("Enter an income amount."); return; }
+  if (!(amount > 0)){ alert("Enter an income amount."); return; }
 
   const who = $("incWho").value;
-  const type = $("incType").value; // W2 or 1099
+  const type = $("incType").value;
   const defaultPct = Number(state.settings.defaultTaxPct || 0);
   const override = Number($("incTaxPct").value || 0);
   const taxPct = (type === "1099") ? ((override > 0 ? override : defaultPct) / 100) : 0;
@@ -578,20 +1109,27 @@ $("addIncomeBtn").onclick = () => {
     amount,
     who,
     type,
-    taxPct: taxPct ? Math.round(taxPct * 1000) / 10 : 0,
+    taxPct: taxPct ? Math.round(taxPct * 1000)/10 : 0,
     taxReserve: Math.round(taxReserve * 100) / 100
   });
-  save(state);
+
+  awardPoints(state, 25, "Logged income");
+  state = markMissionDoneIfMatch(state, "logIncome");
+
   $("incAmount").value = "";
   $("incTaxPct").value = "";
-  render(state);
+  save(state);
+
+  toast("+25 💸");
+  state = render(state);
   show("viewToday");
 };
 
-$("addExpenseBtn").onclick = () => {
+$("addExpenseBtn").onclick = ()=>{
   const date = $("expDate").value || todayISO();
   const amount = Number($("expAmount").value || 0);
-  if (!(amount > 0)) { alert("Enter an expense amount."); return; }
+  if (!(amount > 0)){ alert("Enter an expense amount."); return; }
+
   const category = $("expCategory").value;
   const note = $("expNote").value || "";
 
@@ -604,46 +1142,82 @@ $("addExpenseBtn").onclick = () => {
     note,
     who: "Household"
   });
-  save(state);
+
+  awardPoints(state, 10, "Logged expense");
+  state = markMissionDoneIfMatch(state, "logExpense");
+
   $("expAmount").value = "";
   $("expNote").value = "";
-  render(state);
+  save(state);
+
+  toast("+10 ✅");
+  state = render(state);
   show("viewToday");
 };
 
-$("addBillBtn").onclick = () => {
+$("addBillBtn").onclick = ()=>{
   const name = $("billName").value.trim();
   const amount = Number($("billAmount").value || 0);
   const dueDate = $("billDue").value || "";
   const repeat = $("billRepeat").value;
 
-  if (!name) { alert("Bill name needed."); return; }
-  if (!(amount > 0)) { alert("Bill amount needed."); return; }
-  if (!dueDate) { alert("Bill due date needed."); return; }
+  if (!name){ alert("Bill name needed."); return; }
+  if (!(amount > 0)){ alert("Bill amount needed."); return; }
+  if (!dueDate){ alert("Bill due date needed."); return; }
 
   state.bills.push({ id: uid(), name, amount, dueDate, repeat });
-  save(state);
+
+  awardPoints(state, 20, "Added bill");
+  state = markMissionDoneIfMatch(state, "addBill");
+
   $("billName").value = "";
   $("billAmount").value = "";
-  render(state);
+  save(state);
+
+  toast("+20 🧾");
+  state = render(state);
 };
 
-$("wipeBtn").onclick = () => {
+$("dailyCheckBtn").onclick = ()=>{
+  const today = todayISO();
+  const g = state.game || (state.game = {});
+  const last = g.lastCheckIn || "";
+
+  if (last === today){
+    toast("Already checked in today ✅");
+    return;
+  }
+
+  // streak logic
+  const yesterday = new Date(parseISO(today).getTime() - 24*60*60*1000).toISOString().slice(0,10);
+  if (last === yesterday) g.streak = Number(g.streak || 0) + 1;
+  else g.streak = 1;
+
+  g.lastCheckIn = today;
+  save(state);
+
+  awardPoints(state, 10, "Daily check-in");
+  toast("+10 🔥");
+  confetti();
+  state = render(state);
+};
+
+$("wipeBtn").onclick = ()=>{
   if (!confirm("Reset the app and delete all data on this device?")) return;
   localStorage.removeItem(KEY);
   state = load();
-  render(state);
+  toast("Reset ✅");
+  state = render(state);
   show("viewToday");
 };
 
-/** ---------- PWA / Service Worker ---------- **/
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./sw.js").catch(() => {});
+// Service worker
+if ("serviceWorker" in navigator){
+  navigator.serviceWorker.register("./sw.js").catch(()=>{});
 }
 
-/** ---------- Init ---------- **/
-if (!state.settings.defaultTaxPct && state.settings.defaultTaxPct !== 0) state.settings.defaultTaxPct = 30;
-render(state);
+// Start
+state = render(state);
 show("viewToday");
 </script>
 </body>
