@@ -1,5 +1,11 @@
-const CACHE = "fb-budget-v1";
-const ASSETS = ["./", "./index.html", "./manifest.json"];
+const CACHE = "fb-budget-v2";
+const ASSETS = [
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./icon-192.svg",
+  "./icon-512.svg"
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
