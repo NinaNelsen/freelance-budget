@@ -7,8 +7,7 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon-192.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon-192.svg">
-  <title>Freelance Budget — Freelance Budget — NEW LOOK ✅
-</title>
+  <title>Freelance Budget — Bills First</title>
 
   <style>
     :root{
@@ -19,22 +18,16 @@
       --text: rgba(255,255,255,0.92);
       --muted: rgba(255,255,255,0.72);
       --muted2: rgba(255,255,255,0.55);
-      --accent: #7c5cff;      /* violet */
-      --accent2: #2ee59d;     /* mint */
-      --warn: #ffd166;
-      --bad: #ff6b6b;
-
+      --accent: #7c5cff;
+      --accent2: #2ee59d;
       --goodBg: rgba(46,229,157,0.18);
       --warnBg: rgba(255,209,102,0.18);
       --badBg:  rgba(255,107,107,0.18);
-
       --shadow: 0 18px 40px rgba(0,0,0,0.38);
       --radius: 18px;
       --radius2: 22px;
-
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
     }
-
     *{ box-sizing: border-box; }
     body{
       margin:0;
@@ -45,7 +38,6 @@
         radial-gradient(900px 700px at 50% 120%, rgba(255,209,102,0.10), transparent 55%),
         var(--bg);
     }
-
     header{
       padding: 18px 16px;
       position: sticky;
@@ -55,7 +47,6 @@
       background: linear-gradient(to bottom, rgba(11,15,26,0.92), rgba(11,15,26,0.68));
       border-bottom: 1px solid var(--border);
     }
-
     .topbar{ display:flex; justify-content: space-between; align-items:center; gap:10px; }
     h1{
       margin:0;
@@ -72,19 +63,8 @@
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       box-shadow: 0 0 0 5px rgba(124,92,255,0.12);
     }
-
-    main{
-      padding: 14px 16px 104px;
-      max-width: 1040px;
-      margin: 0 auto;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 12px;
-    }
-
+    main{ padding: 14px 16px 104px; max-width: 1040px; margin: 0 auto; }
+    .grid{ display:grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
     .card{
       grid-column: span 12;
       background: linear-gradient(180deg, var(--panel2), var(--panel));
@@ -95,47 +75,23 @@
       position: relative;
       overflow: hidden;
     }
-
-    .card::after{
-      content:"";
-      position:absolute; inset: -1px;
-      background: radial-gradient(700px 300px at 20% 0%, rgba(124,92,255,0.10), transparent 60%);
-      pointer-events:none;
-      mix-blend-mode: screen;
-    }
-
     @media (min-width: 860px){
       .card.half{ grid-column: span 6; }
       .card.third{ grid-column: span 4; }
       .card.twothird{ grid-column: span 8; }
     }
-
-    .row{
-      display:flex;
-      gap:10px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
+    .row{ display:flex; gap:10px; flex-wrap: wrap; align-items: center; }
     .big{
-      font-size: 34px;
-      font-weight: 950;
-      letter-spacing: -0.6px;
-      margin: 6px 0 8px;
-      line-height: 1.05;
+      font-size: 34px; font-weight: 950; letter-spacing: -0.6px;
+      margin: 6px 0 8px; line-height: 1.05;
     }
-
     .muted{ color: var(--muted); }
     .small{ font-size: 12px; color: var(--muted2); }
 
     label{
-      font-size: 12px;
-      color: var(--muted);
-      display:block;
-      margin-bottom: 6px;
-      font-weight: 750;
+      font-size: 12px; color: var(--muted);
+      display:block; margin-bottom: 6px; font-weight: 750;
     }
-
     input, select, button, textarea{
       width: 100%;
       background: rgba(8,10,16,0.55);
@@ -152,7 +108,6 @@
       border-color: rgba(124,92,255,0.55);
       box-shadow: 0 0 0 4px rgba(124,92,255,0.18);
     }
-
     button{
       cursor:pointer;
       background: rgba(255,255,255,0.07);
@@ -163,7 +118,6 @@
     }
     button:hover{ filter: brightness(1.08); }
     button:active{ transform: translateY(1px); }
-
     button.primary{
       background: linear-gradient(135deg, rgba(124,92,255,0.95), rgba(46,229,157,0.70));
       border-color: rgba(124,92,255,0.65);
@@ -174,11 +128,8 @@
       background: linear-gradient(135deg, rgba(255,107,107,0.55), rgba(255,107,107,0.20));
       border-color: rgba(255,107,107,0.35);
     }
-
     .pill{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
+      display:inline-flex; align-items:center; gap: 8px;
       padding: 7px 10px;
       border: 1px solid rgba(255,255,255,0.14);
       border-radius: 999px;
@@ -188,19 +139,9 @@
       backdrop-filter: blur(10px);
     }
     .pill b{ color: var(--text); }
-
     .status-good{ background: var(--goodBg); border-color: rgba(46,229,157,0.40); color: rgba(255,255,255,0.92); }
     .status-warn{ background: var(--warnBg); border-color: rgba(255,209,102,0.40); color: rgba(255,255,255,0.92); }
     .status-bad { background: var(--badBg);  border-color: rgba(255,107,107,0.40); color: rgba(255,255,255,0.92); }
-
-    .kpi{
-      display:flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 10px;
-    }
-    .kpi b{ font-size: 14px; }
-    .kpi span{ font-size: 12px; color: var(--muted2); }
 
     table{
       width:100%;
@@ -251,10 +192,8 @@
       border: 1px solid rgba(255,255,255,0.16);
       box-shadow: var(--shadow);
     }
-
     .hidden{ display:none !important; }
 
-    /* Hero Safe-to-Spend box */
     .heroNumber{
       background: linear-gradient(135deg, rgba(124,92,255,0.22), rgba(46,229,157,0.12));
       border: 1px solid rgba(255,255,255,0.10);
@@ -262,21 +201,6 @@
       padding: 12px 14px;
       display: inline-block;
       min-width: 240px;
-    }
-
-    /* Progress */
-    .barWrap{
-      width: 100%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 999px;
-      overflow:hidden;
-      height: 12px;
-    }
-    .barFill{
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, rgba(124,92,255,0.95), rgba(46,229,157,0.85));
     }
 
     .toast{
@@ -296,34 +220,24 @@
       text-align:center;
     }
 
-    .badgeGrid{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .badge{
-      display:inline-flex;
-      gap: 8px;
-      align-items:center;
-      padding: 8px 10px;
+    .barWrap{
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(0,0,0,0.14);
-      color: rgba(255,255,255,0.86);
-      font-size: 12px;
+      overflow:hidden;
+      height: 12px;
     }
-    .badge.locked{ opacity: 0.45; }
-    .badge .emoji{ font-size: 14px; }
+    .barFill{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(124,92,255,0.95), rgba(46,229,157,0.85));
+    }
 
-    .confetti{
-      position: fixed;
-      inset: 0;
-      pointer-events:none;
-      z-index: 25;
-    }
+    .confetti{ position: fixed; inset: 0; pointer-events:none; z-index: 25; }
   </style>
 </head>
+
 <body>
 <header>
   <div class="topbar">
@@ -357,71 +271,68 @@
         </div>
 
         <div style="height:14px;"></div>
-        <div>
-          <div class="row" style="justify-content: space-between;">
-            <div>
-              <b>Protection meter</b>
-              <div class="small muted">Are you fully covered for bills + reserved tax right now?</div>
-            </div>
-            <span class="pill" id="protectPct">0%</span>
+        <div class="row" style="justify-content: space-between;">
+          <div>
+            <b>Protection meter</b>
+            <div class="small muted">Are you covered for bills due + reserved tax?</div>
           </div>
-          <div style="height:10px;"></div>
-          <div class="barWrap"><div class="barFill" id="protectBar"></div></div>
-          <div style="height:10px;"></div>
-          <div class="small muted" id="protectExplain">Add bills + income to make this meaningful.</div>
+          <span class="pill" id="protectPct">0%</span>
+        </div>
+        <div style="height:10px;"></div>
+        <div class="barWrap"><div class="barFill" id="protectBar"></div></div>
+        <div style="height:10px;"></div>
+        <div class="small muted" id="protectExplain">Add bills + income to make this meaningful.</div>
+
+        <div style="height:14px;"></div>
+        <div class="row" style="justify-content:flex-end;">
+          <button class="primary" id="addPaycheckBtn" style="width:auto;">Add Regular Paycheck</button>
         </div>
       </div>
 
       <div class="card half">
-        <div class="kpi">
-          <div>
-            <b>Current balance</b><br/>
-            <span>Starting balance + incomes − expenses</span>
-          </div>
-          <div class="big" style="font-size:22px;" id="balance">$0</div>
-        </div>
-        <div style="height:10px;"></div>
-
-        <div class="kpi">
-          <div>
-            <b>Bills due before next pay</b><br/>
-            <span>From your Bills list</span>
-          </div>
-          <div class="big" style="font-size:22px;" id="billsDue">$0</div>
-        </div>
-        <div style="height:10px;"></div>
-
-        <div class="kpi">
-          <div>
-            <b>Tax reserved</b><br/>
-            <span>1099 set-aside (based on your %)</span>
-          </div>
-          <div class="big" style="font-size:22px;" id="taxReserved">$0</div>
-        </div>
-
-        <div style="height:14px;"></div>
         <div class="row" style="justify-content: space-between;">
-          <button id="dailyCheckBtn" class="primary" style="width:auto;">Daily Check-in (+10)</button>
-          <span class="pill" id="dailyMission">Mission: —</span>
-        </div>
-      </div>
-
-      <div class="card twothird">
-        <div class="row" style="justify-content: space-between; align-items:flex-end;">
           <div>
-            <b>Quick settings</b>
-            <div class="small muted">Set this once. Next pay auto-rolls every 14 days.</div>
+            <b>Reality check</b>
+            <div class="small muted">Make the app match what your bank shows today.</div>
           </div>
+          <button id="reconcileBtn" class="primary" style="width:auto;">Reconcile</button>
         </div>
+
         <div style="height:10px;"></div>
         <div class="row">
           <div style="flex:1; min-width: 220px;">
-            <label>Starting balance (today)</label>
-            <input id="startingBalance" type="number" inputmode="decimal" placeholder="e.g., 5000" />
+            <label>Bank balance today</label>
+            <input id="bankBalanceToday" type="number" inputmode="decimal" placeholder="What your checking shows right now" />
+          </div>
+        </div>
+        <div class="small muted">Reconcile updates Starting Balance so “Current balance” equals your bank balance today.</div>
+
+        <div style="height:14px;"></div>
+
+        <div class="row">
+          <span class="pill">Current balance: <b id="balance">$0</b></span>
+          <span class="pill">Bills due: <b id="billsDue">$0</b></span>
+          <span class="pill">Tax reserved: <b id="taxReserved">$0</b></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <b>Setup (the stuff you asked for)</b>
+        <div class="small muted">Enter your regular paycheck once, plus your next pay date. 1099 is added anytime in the Add tab.</div>
+        <div style="height:10px;"></div>
+
+        <div class="row">
+          <div style="flex:1; min-width: 220px;">
+            <label>Starting balance (internal)</label>
+            <input id="startingBalance" type="number" inputmode="decimal" placeholder="Used for calculations" />
           </div>
           <div style="flex:1; min-width: 220px;">
             <label>Next pay date (regular job)</label>
             <input id="nextPayDate" type="date" />
+          </div>
+          <div style="flex:1; min-width: 220px;">
+            <label>Regular paycheck amount</label>
+            <input id="regularPayAmount" type="number" inputmode="decimal" placeholder="e.g., 2500" />
           </div>
           <div style="flex:1; min-width: 220px;">
             <label>Default 1099 tax set-aside %</label>
@@ -432,25 +343,12 @@
             <button class="primary" id="saveSettingsBtn">Save</button>
           </div>
         </div>
-      </div>
 
-      <div class="card third">
-        <b>Your game</b>
-        <div class="small muted">Tiny dopamine, real behavior change.</div>
-        <div style="height:10px;"></div>
-
-        <div class="row">
-          <span class="pill">✨ Score: <b id="score">0</b></span>
-          <span class="pill">🔥 Streak: <b id="streak">0</b>d</span>
-          <span class="pill">⬆️ Level: <b id="level">1</b></span>
+        <div style="height:12px;"></div>
+        <div class="small muted">
+          Tip: You can ignore tiny expenses at first. As long as bills + income are in here and you reconcile occasionally,
+          “Safe to Spend” stays useful.
         </div>
-
-        <div style="height:10px;"></div>
-        <div class="small muted" id="levelLabel">Next level: —</div>
-        <div style="height:8px;"></div>
-        <div class="barWrap"><div class="barFill" id="levelBar"></div></div>
-
-        <div class="badgeGrid" id="badges"></div>
       </div>
 
       <div class="card">
@@ -469,7 +367,7 @@
 
       <div class="card half">
         <b>Add income</b>
-        <div class="small muted">Choose W-2 or 1099. 1099 automatically reserves taxes.</div>
+        <div class="small muted">Use “Regular paycheck” OR choose 1099 for random freelance money (tax reserved automatically).</div>
         <div style="height:10px;"></div>
 
         <div class="row">
@@ -494,7 +392,8 @@
           <div style="flex:1; min-width: 200px;">
             <label>Type</label>
             <select id="incType">
-              <option value="W2">W-2</option>
+              <option value="Regular">Regular paycheck</option>
+              <option value="W2">W-2 (other)</option>
               <option value="1099">1099</option>
             </select>
           </div>
@@ -505,13 +404,13 @@
         </div>
 
         <div class="row" style="justify-content:flex-end;">
-          <button class="primary" id="addIncomeBtn" style="width:auto;">Add income (+25)</button>
+          <button class="primary" id="addIncomeBtn" style="width:auto;">Add income</button>
         </div>
       </div>
 
       <div class="card half">
         <b>Add expense</b>
-        <div class="small muted">Expenses reduce balance. Logging = points.</div>
+        <div class="small muted">Log what you can. Reconcile makes up the difference.</div>
         <div style="height:10px;"></div>
 
         <div class="row">
@@ -545,7 +444,7 @@
         </div>
 
         <div class="row" style="justify-content:flex-end;">
-          <button class="primary" id="addExpenseBtn" style="width:auto;">Add expense (+10)</button>
+          <button class="primary" id="addExpenseBtn" style="width:auto;">Add expense</button>
         </div>
       </div>
 
@@ -599,7 +498,7 @@
         </div>
 
         <div class="row" style="justify-content:flex-end;">
-          <button class="primary" id="addBillBtn" style="width:auto;">Add bill (+20)</button>
+          <button class="primary" id="addBillBtn" style="width:auto;">Add bill</button>
         </div>
       </div>
 
@@ -612,7 +511,7 @@
 
       <div class="card">
         <b>Taxes (annual surprise antidote)</b>
-        <div class="small muted">We “reserve” taxes based on 1099 income so you don’t spend it by accident.</div>
+        <div class="small muted">We reserve taxes based on 1099 income so you don’t spend it by accident.</div>
         <div style="height:10px;"></div>
         <div id="taxSummary"></div>
       </div>
@@ -630,7 +529,7 @@
 <canvas class="confetti hidden" id="confetti"></canvas>
 
 <script>
-/** ----------------- Helpers ----------------- **/
+/** Helpers **/
 const $ = (id) => document.getElementById(id);
 const money = (n) => Number(n || 0).toLocaleString(undefined, { style:"currency", currency:"USD" });
 const todayISO = () => new Date().toISOString().slice(0,10);
@@ -643,56 +542,6 @@ function escapeHtml(str){
     .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
     .replaceAll('"',"&quot;").replaceAll("'","&#039;");
 }
-
-/** ----------------- Storage ----------------- **/
-const KEY = "fb_budget_v2_gamified";
-function load(){
-  const raw = localStorage.getItem(KEY);
-  if (!raw) return {
-    settings: { startingBalance: 0, nextPayDate: "", defaultTaxPct: 30 },
-    tx: [],
-    bills: [],
-    game: {
-      score: 0,
-      lastCheckIn: "",
-      streak: 0,
-      earnedBadges: {},
-      lastMissionDay: "",
-      mission: { kind: "logExpense", done: false },
-      history: [] // {day, scoreDelta}
-    }
-  };
-  try { return JSON.parse(raw); } catch { return null; }
-}
-function save(state){ localStorage.setItem(KEY, JSON.stringify(state)); }
-
-/** ----------------- Game Logic ----------------- **/
-const BADGES = [
-  { id:"firstBill", emoji:"🧾", name:"First Bill", desc:"Add your first bill." },
-  { id:"firstIncome", emoji:"💸", name:"First Income", desc:"Log your first income." },
-  { id:"first1099", emoji:"🧠", name:"Tax-Smart", desc:"Log a 1099 income (tax reserved)." },
-  { id:"streak3", emoji:"🔥", name:"3-Day Streak", desc:"Check in 3 days in a row." },
-  { id:"streak7", emoji:"🏅", name:"7-Day Streak", desc:"Check in 7 days in a row." },
-  { id:"covered", emoji:"🛡️", name:"Protected", desc:"Reach 100% protection meter." },
-  { id:"tenTx", emoji:"📚", name:"Log Habit", desc:"Log 10 transactions." }
-];
-
-function levelFromScore(score){
-  // gentle curve: Level 1 at 0, level 2 at 100, level 3 at 230, etc.
-  // requirement per level increases by 30 each level.
-  let level = 1;
-  let need = 100;
-  let remaining = score;
-  while (remaining >= need){
-    remaining -= need;
-    level++;
-    need += 30;
-  }
-  const nextNeed = need;
-  const progress = nextNeed ? (remaining / nextNeed) : 0;
-  return { level, remaining, nextNeed, progress };
-}
-
 function toast(msg){
   const el = document.createElement("div");
   el.className = "toast";
@@ -702,55 +551,25 @@ function toast(msg){
   setTimeout(()=>{ el.remove(); }, 1900);
 }
 
-function awardPoints(state, pts, reason){
-  state.game.score = Number(state.game.score || 0) + pts;
-  state.game.history.push({ day: todayISO(), scoreDelta: pts, reason });
-  // keep history small
-  if (state.game.history.length > 120) state.game.history = state.game.history.slice(-120);
-  save(state);
-  return state;
+/** Storage **/
+const KEY = "fb_budget_v3_core";
+function load(){
+  const raw = localStorage.getItem(KEY);
+  if (!raw) return {
+    settings: {
+      startingBalance: 0,
+      nextPayDate: "",
+      regularPayAmount: 0,
+      defaultTaxPct: 30
+    },
+    tx: [],
+    bills: []
+  };
+  try { return JSON.parse(raw); } catch { return null; }
 }
+function save(state){ localStorage.setItem(KEY, JSON.stringify(state)); }
 
-function unlockBadge(state, badgeId){
-  if (state.game.earnedBadges[badgeId]) return state;
-  state.game.earnedBadges[badgeId] = todayISO();
-  save(state);
-  confetti();
-  const b = BADGES.find(x=>x.id===badgeId);
-  if (b) toast(`Badge unlocked: ${b.emoji} ${b.name}`);
-  return state;
-}
-
-function ensureDailyMission(state){
-  const today = todayISO();
-  if (state.game.lastMissionDay !== today){
-    // rotate missions (simple)
-    const missions = [
-      { kind:"logExpense", label:"Mission: log 1 expense (+10)", pts:10 },
-      { kind:"logIncome",  label:"Mission: log income (+25)", pts:25 },
-      { kind:"addBill",    label:"Mission: add/confirm a bill (+20)", pts:20 }
-    ];
-    const idx = Math.floor(Math.random() * missions.length);
-    state.game.mission = { ...missions[idx], done:false };
-    state.game.lastMissionDay = today;
-    save(state);
-  }
-  return state;
-}
-
-function markMissionDoneIfMatch(state, kind){
-  state = ensureDailyMission(state);
-  if (state.game.mission && !state.game.mission.done && state.game.mission.kind === kind){
-    state.game.mission.done = true;
-    awardPoints(state, state.game.mission.pts, "Mission completed");
-    confetti();
-    toast(`Mission complete! +${state.game.mission.pts}`);
-    save(state);
-  }
-  return state;
-}
-
-/** ----------------- Budget Math ----------------- **/
+/** Budget logic **/
 function rollNextPayForward(state){
   const now = parseISO(todayISO());
   if (!state.settings.nextPayDate) return state;
@@ -759,7 +578,7 @@ function rollNextPayForward(state){
 
   let changed = false;
   while (nextPay < now){
-    nextPay = new Date(nextPay.getTime() + 14 * 24*60*60*1000); // every 2 weeks
+    nextPay = new Date(nextPay.getTime() + 14 * 24*60*60*1000);
     changed = true;
   }
   if (changed){
@@ -819,43 +638,16 @@ function compute(state){
   const impliedPct = ytd1099 > 0 ? (taxReserved / ytd1099) : defaultPct;
   const estTax = ytd1099 * impliedPct;
 
-  // Protection meter: do you have enough balance to cover (billsDue + taxReserved)?
   const required = billsDue + taxReserved;
   const protection = required > 0 ? clamp01(balance / required) : 0;
 
   return { balance, taxReserved, billsDue, safeToSpend, nextPay, windowEnd, ytd1099, estTax, impliedPct, required, protection };
 }
 
-/** ----------------- Rendering ----------------- **/
-function renderBadges(state){
-  const earned = state.game.earnedBadges || {};
-  const html = BADGES.map(b=>{
-    const got = !!earned[b.id];
-    const cls = "badge" + (got ? "" : " locked");
-    const when = got ? ` • ${earned[b.id]}` : "";
-    return `<span class="${cls}" title="${escapeHtml(b.desc)}${when}">
-      <span class="emoji">${b.emoji}</span>
-      <span>${escapeHtml(b.name)}</span>
-    </span>`;
-  }).join("");
-  $("badges").innerHTML = html;
-}
-
-function checkBadges(state, computed){
-  if (state.bills.length >= 1) unlockBadge(state, "firstBill");
-  if (state.tx.some(t=>t.kind==="income")) unlockBadge(state, "firstIncome");
-  if (state.tx.some(t=>t.kind==="income" && t.type==="1099")) unlockBadge(state, "first1099");
-  if (state.tx.length >= 10) unlockBadge(state, "tenTx");
-  if (computed.protection >= 1) unlockBadge(state, "covered");
-  if ((state.game.streak || 0) >= 3) unlockBadge(state, "streak3");
-  if ((state.game.streak || 0) >= 7) unlockBadge(state, "streak7");
-  return state;
-}
-
+/** Render **/
 function render(state){
   state = rollNextPayForward(state);
   state = rollBillsForward(state);
-  state = ensureDailyMission(state);
 
   const c = compute(state);
 
@@ -866,9 +658,10 @@ function render(state){
 
   $("startingBalance").value = state.settings.startingBalance ?? 0;
   $("nextPayDate").value = state.settings.nextPayDate ?? "";
+  $("regularPayAmount").value = state.settings.regularPayAmount ?? 0;
   $("defaultTaxPct").value = state.settings.defaultTaxPct ?? 30;
 
-  // Until pay pill + safe/day/week
+  // until pay + safe/day/week
   const now = parseISO(todayISO());
   const end = state.settings.nextPayDate ? parseISO(state.settings.nextPayDate) : new Date(now.getTime() + 14*24*60*60*1000);
   const days = Math.max(1, daysBetween(now, end));
@@ -884,7 +677,7 @@ function render(state){
   $("safePerDay").textContent = `Safe/day: ${money(safePerDay)}`;
   $("safePerWeek").textContent = `Safe/week: ${money(safePerWeek)}`;
 
-  // Traffic light status
+  // status pill
   let status = "Green", cls = "status-good";
   if (c.safeToSpend < 0){ status = "Red"; cls = "status-bad"; }
   else if (c.safeToSpend < Math.max(100, c.billsDue * 0.25)){ status = "Yellow"; cls = "status-warn"; }
@@ -893,7 +686,7 @@ function render(state){
   pill.classList.remove("status-good","status-warn","status-bad");
   pill.classList.add(cls);
 
-  // Protection meter
+  // protection meter
   const pct = Math.round(c.protection * 100);
   $("protectPct").textContent = `${pct}%`;
   $("protectBar").style.width = `${pct}%`;
@@ -906,10 +699,7 @@ function render(state){
       : `To be fully protected, you need about ${money(gap)} more in balance.`;
   }
 
-  // Mission label
-  $("dailyMission").textContent = state.game.mission?.label || "Mission: —";
-
-  // Upcoming bills
+  // upcoming bills
   const in30 = new Date(now.getTime() + 30*24*60*60*1000);
   const upcoming = state.bills
     .map(b=>({ ...b, due: parseISO(b.dueDate) }))
@@ -931,7 +721,7 @@ function render(state){
       </table>`
     : `<div class="small muted">No bills in the next 30 days yet. Add them in the Bills tab.</div>`;
 
-  // Transactions table
+  // tx table
   const txSorted = [...state.tx].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
   $("txTable").innerHTML = txSorted.length
     ? `<table>
@@ -950,7 +740,7 @@ function render(state){
       </table>`
     : `<div class="small muted">No transactions yet. Add income/expenses in the Add tab.</div>`;
 
-  // Bills table
+  // bills table
   const billsSorted = [...state.bills].sort((a,b)=>(a.dueDate||"").localeCompare(b.dueDate||""));
   $("billsTable").innerHTML = billsSorted.length
     ? `<table>
@@ -968,7 +758,7 @@ function render(state){
       </table>`
     : `<div class="small muted">No bills yet. Add your biggest fixed bills first.</div>`;
 
-  // Tax summary
+  // tax summary
   $("taxSummary").innerHTML = `
     <div class="row" style="gap:10px; flex-wrap:wrap;">
       <div class="pill">1099 income: <b>${money(c.ytd1099)}</b></div>
@@ -976,29 +766,9 @@ function render(state){
       <div class="pill">Estimated tax: <b>${money(c.estTax)}</b></div>
       <div class="pill">Reserved so far: <b>${money(c.taxReserved)}</b></div>
     </div>
-    <div style="height:10px;"></div>
-    <div class="small muted">
-      Goal: keep “Reserved so far” tracking the estimate so April isn’t brutal.
-    </div>
   `;
 
-  // Game UI
-  const g = state.game || {};
-  const score = Number(g.score || 0);
-  const streak = Number(g.streak || 0);
-  $("score").textContent = String(score);
-  $("streak").textContent = String(streak);
-
-  const lvl = levelFromScore(score);
-  $("level").textContent = String(lvl.level);
-  $("levelLabel").textContent = `Next level in ${Math.max(0, Math.ceil((lvl.nextNeed - lvl.remaining)))} points`;
-  $("levelBar").style.width = `${Math.round(lvl.progress * 100)}%`;
-
-  // badges + checks
-  state = checkBadges(state, c);
-  renderBadges(state);
-
-  // delete buttons
+  // wire delete buttons
   document.querySelectorAll("[data-del-tx]").forEach(btn=>{
     btn.onclick = ()=>{
       const id = btn.getAttribute("data-del-tx");
@@ -1019,7 +789,7 @@ function render(state){
   return state;
 }
 
-/** ----------------- Tabs ----------------- **/
+/** Tabs **/
 function show(view){
   $("viewToday").classList.add("hidden");
   $("viewAdd").classList.add("hidden");
@@ -1027,18 +797,17 @@ function show(view){
   $(view).classList.remove("hidden");
 }
 
-/** ----------------- Confetti (tiny + cute) ----------------- **/
+/** Confetti **/
 function confetti(){
   const canvas = $("confetti");
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   canvas.classList.remove("hidden");
-
   const colors = ["#7c5cff","#2ee59d","#ffd166","#ff6b6b","#ffffff"];
-  const parts = Array.from({length: 90}).map(()=>({
+  const parts = Array.from({length: 70}).map(()=>({
     x: Math.random()*canvas.width,
-    y: -20 - Math.random()*canvas.height*0.3,
+    y: -20 - Math.random()*canvas.height*0.2,
     r: 2 + Math.random()*3,
     vx: -1 + Math.random()*2,
     vy: 2 + Math.random()*4,
@@ -1046,16 +815,12 @@ function confetti(){
     va: -0.2 + Math.random()*0.4,
     c: colors[Math.floor(Math.random()*colors.length)]
   }));
-
   let t = 0;
   function frame(){
     t++;
     ctx.clearRect(0,0,canvas.width,canvas.height);
     parts.forEach(p=>{
-      p.x += p.vx;
-      p.y += p.vy;
-      p.a += p.va;
-
+      p.x += p.vx; p.y += p.vy; p.a += p.va;
       ctx.save();
       ctx.translate(p.x, p.y);
       ctx.rotate(p.a);
@@ -1063,13 +828,13 @@ function confetti(){
       ctx.fillRect(-p.r, -p.r, p.r*2.6, p.r*1.4);
       ctx.restore();
     });
-    if (t < 45) requestAnimationFrame(frame);
+    if (t < 40) requestAnimationFrame(frame);
     else canvas.classList.add("hidden");
   }
   requestAnimationFrame(frame);
 }
 
-/** ----------------- Init + Events ----------------- **/
+/** Init + Events **/
 let state = load();
 if (!state) state = load();
 
@@ -1084,9 +849,48 @@ $("tabBills").onclick = ()=> show("viewBills");
 $("saveSettingsBtn").onclick = ()=>{
   state.settings.startingBalance = Number($("startingBalance").value || 0);
   state.settings.nextPayDate = $("nextPayDate").value || "";
+  state.settings.regularPayAmount = Number($("regularPayAmount").value || 0);
   state.settings.defaultTaxPct = Number($("defaultTaxPct").value || 0);
   save(state);
   toast("Saved ✅");
+  state = render(state);
+  show("viewToday");
+};
+
+$("addPaycheckBtn").onclick = ()=>{
+  const amt = Number(state.settings.regularPayAmount || 0);
+  if (!(amt > 0)){
+    alert("Set your Regular paycheck amount first (in Setup), then try again.");
+    return;
+  }
+  const date = todayISO();
+  state.tx.push({
+    id: uid(),
+    kind: "income",
+    date,
+    amount: amt,
+    who: "Nina",
+    type: "Regular",
+    taxReserve: 0
+  });
+  save(state);
+  toast("Paycheck added 💸");
+  confetti();
+  state = render(state);
+};
+
+$("reconcileBtn").onclick = ()=>{
+  const bank = Number($("bankBalanceToday").value || 0);
+  if (!isFinite(bank)){
+    alert("Enter your bank balance today.");
+    return;
+  }
+  // Adjust starting balance so computed balance equals bank balance today.
+  const c = compute(state);
+  const diff = bank - c.balance;
+  state.settings.startingBalance = Number(state.settings.startingBalance || 0) + diff;
+  save(state);
+  toast("Reconciled ✅");
   state = render(state);
   show("viewToday");
 };
@@ -1098,6 +902,7 @@ $("addIncomeBtn").onclick = ()=>{
 
   const who = $("incWho").value;
   const type = $("incType").value;
+
   const defaultPct = Number(state.settings.defaultTaxPct || 0);
   const override = Number($("incTaxPct").value || 0);
   const taxPct = (type === "1099") ? ((override > 0 ? override : defaultPct) / 100) : 0;
@@ -1114,14 +919,11 @@ $("addIncomeBtn").onclick = ()=>{
     taxReserve: Math.round(taxReserve * 100) / 100
   });
 
-  awardPoints(state, 25, "Logged income");
-  state = markMissionDoneIfMatch(state, "logIncome");
-
   $("incAmount").value = "";
   $("incTaxPct").value = "";
   save(state);
 
-  toast("+25 💸");
+  toast("Income added ✅");
   state = render(state);
   show("viewToday");
 };
@@ -1144,14 +946,11 @@ $("addExpenseBtn").onclick = ()=>{
     who: "Household"
   });
 
-  awardPoints(state, 10, "Logged expense");
-  state = markMissionDoneIfMatch(state, "logExpense");
-
   $("expAmount").value = "";
   $("expNote").value = "";
   save(state);
 
-  toast("+10 ✅");
+  toast("Expense added ✅");
   state = render(state);
   show("viewToday");
 };
@@ -1167,39 +966,11 @@ $("addBillBtn").onclick = ()=>{
   if (!dueDate){ alert("Bill due date needed."); return; }
 
   state.bills.push({ id: uid(), name, amount, dueDate, repeat });
-
-  awardPoints(state, 20, "Added bill");
-  state = markMissionDoneIfMatch(state, "addBill");
-
   $("billName").value = "";
   $("billAmount").value = "";
   save(state);
 
-  toast("+20 🧾");
-  state = render(state);
-};
-
-$("dailyCheckBtn").onclick = ()=>{
-  const today = todayISO();
-  const g = state.game || (state.game = {});
-  const last = g.lastCheckIn || "";
-
-  if (last === today){
-    toast("Already checked in today ✅");
-    return;
-  }
-
-  // streak logic
-  const yesterday = new Date(parseISO(today).getTime() - 24*60*60*1000).toISOString().slice(0,10);
-  if (last === yesterday) g.streak = Number(g.streak || 0) + 1;
-  else g.streak = 1;
-
-  g.lastCheckIn = today;
-  save(state);
-
-  awardPoints(state, 10, "Daily check-in");
-  toast("+10 🔥");
-  confetti();
+  toast("Bill added 🧾");
   state = render(state);
 };
 
@@ -1223,3 +994,4 @@ show("viewToday");
 </script>
 </body>
 </html>
+
